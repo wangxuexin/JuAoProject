@@ -1,0 +1,65 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+
+    defaultConfig {
+        applicationId "com.fizz.JuAoProject"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 4
+        versionName "2.2"
+
+        ndk {
+            //根据需要 自行选择添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a','x86'
+            //还可以添加 'x86_64', 'mips', 'mips64'
+        }
+
+
+        manifestPlaceholders = [
+
+                XG_ACCESS_ID : "2100263224",
+                XG_ACCESS_KEY : "A79T71JFQ2IG",
+        ]
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    signingConfigs {
+        debug {
+            storeFile file('key.jks')
+            storePassword "20160725"
+            keyAlias "fizz"
+            keyPassword "comeyou"
+        }
+    }
+
+}
+repositories {
+    maven {
+        url "https://maven.google.com"
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    //noinspection GradleCompatible
+    compile 'com.android.support:appcompat-v7:25.4.0'
+    //noinspection GradleCompatible
+    compile 'com.android.support:support-v4:25.4.0'
+    compile files('libs/open_sdk_r5781.jar')
+    compile files('libs/SocialSDK_Sina_Full.jar')
+    compile files('libs/weiboSDKCore_3.1.4.jar')
+    compile 'com.google.code.gson:gson:2.8.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.7'
+    compile 'cn.dxjia:ffmpegexecutor:0.1.7'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation files('libs/jg_filter_sdk_1.1.jar')
+}
